@@ -1,0 +1,35 @@
+# Unity specific folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Pp]ackageCache/
+
+# Ignore project-specific settings
+UserSettings/
+
+# Ignore auto-generated files
+*.csproj
+*.unityproj
+*.sln
+*.user
+*.userprefs
+
+# Ignore build output
+*.stackdump
+
+# Ignore crash reports
+*.pid
+
+# Ignore temporary files created by Unity
+.vs/
+.idea/
+
+# Ignore Unity asset store tools
+[Aa]ssets/AssetStoreTools*
+
+# Exclude the directory where the Unity Collab cache is stored
+[Cc]ollab/
