@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerControlls : MonoBehaviour
@@ -30,8 +31,11 @@ public class PlayerControlls : MonoBehaviour
         velocityY = moveInputY * Time.deltaTime * speedModifier;
         rigidLink.velocity = new Vector2 (velocityX, velocityY);
 
-
-
     
+    }
+
+    public void OnMove(InputValue value)
+    {
+
     }
 }
