@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
@@ -25,9 +27,13 @@ public class PlayerControlls : MonoBehaviour
     Animator animatorLink;
     [SerializeField] float rotationSpeed;
     [SerializeField] float rotationThreshold;
-
-
-
+    public GameObject playerLight;
+    [SerializeField] Light2D lightScript;
+    float elapsedTime;
+    float percentComplete;
+    public bool flashing;
+    float sizeInner;
+    float sizeOuter;
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -36,7 +42,8 @@ public class PlayerControlls : MonoBehaviour
         transform.position = spawnLocation.transform.position;
         animatorLink = GetComponent<Animator>();
         transform.Rotate(0, 0, 0);
-
+        sizeInner = lightScript.pointLightInnerRadius;
+        sizeOuter = lightScript.pointLightOuterRadius;
     }
 
     // Calls once every fixed number of Frames
@@ -44,6 +51,16 @@ public class PlayerControlls : MonoBehaviour
     {
         Move();
         Rotate();
+        elapsedTime += Time.deltaTime;
+        if (flashing == true)
+        {
+            IncreaseLight();
+        }
+
+        if (flashing == false)
+        {
+            DecreaseLight();
+        }
     }
 
     private void Move()
@@ -59,6 +76,57 @@ public class PlayerControlls : MonoBehaviour
 
     }
 
+    public void IncreaseLight()
+    {
+        if (lightScript.pointLightInnerRadius < 8)
+        {
+            lightScript.pointLightInnerRadius += 100f * Time.deltaTime;
+        }
+
+        if (lightScript.pointLightOuterRadius < 30)
+        {
+            lightScript.pointLightOuterRadius += 100f * Time.deltaTime;
+            lightScript.intensity = 200f;
+        }
+
+        if (lightScript.pointLightInnerRadius >= 8 && lightScript.pointLightOuterRadius >= 30)
+        {
+            flashing = false;
+        }
+
+    }
+
+    public void DecreaseLight()
+    {
+        if (lightScript.pointLightInnerRadius > sizeInner)
+        {
+            lightScript.pointLightInnerRadius -= 30f * Time.deltaTime;
+        }
+
+        if (lightScript.pointLightOuterRadius > sizeOuter)
+        {
+            lightScript.pointLightOuterRadius -= 30f * Time.deltaTime;
+        }
+
+        if (lightScript.intensity > 1)
+        {
+            lightScript.intensity -= 100 * Time.deltaTime;
+        }
+        else
+        {
+            lightScript.intensity = 1f;
+        }
+
+        if(lightScript.pointLightInnerRadius < sizeInner)
+        {
+            lightScript.pointLightInnerRadius = sizeInner;
+        }
+
+        if(lightScript.pointLightOuterRadius < sizeOuter)
+        {
+            lightScript.pointLightOuterRadius = sizeOuter;
+        }
+    }
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -85,5 +153,14 @@ public class PlayerControlls : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
         }
+    }
+
+    public void OnFlash()
+    {
+        float flashDuration = 3f;
+        percentComplete = elapsedTime / flashDuration;
+        sizeInner = lightScript.pointLightInnerRadius -0.25f;
+        sizeOuter = lightScript.pointLightOuterRadius - 1f;
+        flashing = true;
     }
 }

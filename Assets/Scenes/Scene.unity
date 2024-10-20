@@ -14034,8 +14034,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.57
-  m_PointLightOuterRadius: 1.7
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 2
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -14181,7 +14181,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14276,6 +14276,9 @@ MonoBehaviour:
   averageSpeed: 0
   rotationSpeed: 300
   rotationThreshold: 0
+  playerLight: {fileID: 842797123}
+  lightScript: {fileID: 842797125}
+  flashing: 0
 --- !u!95 &1221429924
 Animator:
   serializedVersion: 5
