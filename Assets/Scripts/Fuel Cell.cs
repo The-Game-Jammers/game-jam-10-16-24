@@ -8,14 +8,21 @@ public class FuelCell : MonoBehaviour
     [SerializeField] PlayerControlls playerControlls;
     [SerializeField] float iN;
     [SerializeField] float oN;
+    float inner;
+    float outer;
 
-    
+    private void Start()
+    {
+        playerControlls = playerLink.GetComponent<PlayerControlls>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         var hitTag = collision.tag;
         if(hitTag == "Player")
         {
-           PlayerControlls.setRadius((PlayerControlls.getInnerRadius + iN),(PlayerControlls.getOuterRadius + oN));
+            playerControlls.setRadius((playerControlls.getInnerRadius() + iN), (playerControlls.getOuterRadius() + oN));
+            Destroy(gameObject);
         }
     }
 
