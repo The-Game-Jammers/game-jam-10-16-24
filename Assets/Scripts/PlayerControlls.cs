@@ -32,8 +32,8 @@ public class PlayerControlls : MonoBehaviour
     float elapsedTime;
     float percentComplete;
     public bool flashing;
-    float sizeInner;
-    float sizeOuter;
+    float sizeInnerRadius;
+    float sizeOuterRadius;
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -42,8 +42,8 @@ public class PlayerControlls : MonoBehaviour
         transform.position = spawnLocation.transform.position;
         animatorLink = GetComponent<Animator>();
         transform.Rotate(0, 0, 0);
-        sizeInner = lightScript.pointLightInnerRadius;
-        sizeOuter = lightScript.pointLightOuterRadius;
+        sizeInnerRadius = lightScript.pointLightInnerRadius;
+        sizeOuterRadius = lightScript.pointLightOuterRadius;
     }
 
     // Calls once every fixed number of Frames
@@ -62,7 +62,21 @@ public class PlayerControlls : MonoBehaviour
             DecreaseLight();
         }
     }
+    public void setRadius(float innerRadius, float outRadius)
+    {
+        sizeInnerRadius = innerRadius;
+        sizeOuterRadius = outRadius;
+    }
 
+    public float getInnerRadius()
+    {
+        return sizeInnerRadius;
+    }
+
+    public float getOuterRadius()
+    {
+        return sizeOuterRadius;
+    }
     private void Move()
     {
         velocityX = moveInputX * Time.deltaTime * speedModifier;
@@ -98,33 +112,33 @@ public class PlayerControlls : MonoBehaviour
 
     public void DecreaseLight()
     {
-        if (lightScript.pointLightInnerRadius > sizeInner)
+        if (lightScript.pointLightInnerRadius > sizeInnerRadius)
         {
             lightScript.pointLightInnerRadius -= 30f * Time.deltaTime;
         }
 
-        if (lightScript.pointLightOuterRadius > sizeOuter)
+        if (lightScript.pointLightOuterRadius > sizeOuterRadius)
         {
             lightScript.pointLightOuterRadius -= 30f * Time.deltaTime;
         }
 
         if (lightScript.intensity > 1)
         {
-            lightScript.intensity -= 100 * Time.deltaTime;
+            lightScript.intensity -= 200 * Time.deltaTime;
         }
         else
         {
             lightScript.intensity = 1f;
         }
 
-        if(lightScript.pointLightInnerRadius < sizeInner)
+        if(lightScript.pointLightInnerRadius < sizeInnerRadius)
         {
-            lightScript.pointLightInnerRadius = sizeInner;
+            lightScript.pointLightInnerRadius = sizeInnerRadius;
         }
 
-        if(lightScript.pointLightOuterRadius < sizeOuter)
+        if(lightScript.pointLightOuterRadius < sizeOuterRadius)
         {
-            lightScript.pointLightOuterRadius = sizeOuter;
+            lightScript.pointLightOuterRadius = sizeOuterRadius;
         }
     }
     public void OnMove(InputValue value)
@@ -159,8 +173,8 @@ public class PlayerControlls : MonoBehaviour
     {
         float flashDuration = 3f;
         percentComplete = elapsedTime / flashDuration;
-        sizeInner = lightScript.pointLightInnerRadius -0.25f;
-        sizeOuter = lightScript.pointLightOuterRadius - 1f;
+        sizeInnerRadius = lightScript.pointLightInnerRadius -0.25f;
+        sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
         flashing = true;
     }
 }
