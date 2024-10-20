@@ -15,7 +15,7 @@ public class FuelCell : MonoBehaviour
         var hitTag = collision.tag;
         if(hitTag == "Player")
         {
-           PlayerControlls.setRadius((getInnerRadius + iN),(getOuterRadius + oN))
+           PlayerControlls.setRadius((getInnerRadius + iN),(getOuterRadius + oN));
         }
     }
 
