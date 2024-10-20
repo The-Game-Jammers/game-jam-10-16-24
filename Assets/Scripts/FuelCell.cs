@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class FuelCell : MonoBehaviour
 {
-    [SerializeField] GameObject playerLink;
+    [SerializeField] GameObject player;
     [SerializeField] PlayerControlls playerControlls;
-    [SerializeField] float iN;
-    [SerializeField] float oN;
-    float inner;
-    float outer;
-
-    private void Start()
+    void Start()
     {
-        playerControlls = playerLink.GetComponent<PlayerControlls>();
+        playerControlls = player.GetComponent<PlayerControlls>();
     }
+
+    // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         var hitTag = collision.tag;
         if(hitTag == "Player")
         {
-            playerControlls.setRadius((playerControlls.getInnerRadius() + iN), (playerControlls.getOuterRadius() + oN));
+            playerControlls.setRadius(playerControlls.sizeInnerRadius + 0.25f, playerControlls.sizeOuterRadius + 1f);
             Destroy(gameObject);
         }
     }
-
 }

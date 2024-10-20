@@ -32,8 +32,8 @@ public class PlayerControlls : MonoBehaviour
     float elapsedTime;
     float percentComplete;
     public bool flashing;
-    float sizeInnerRadius;
-    float sizeOuterRadius;
+    public float sizeInnerRadius;
+    public float sizeOuterRadius;
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -44,6 +44,7 @@ public class PlayerControlls : MonoBehaviour
         transform.Rotate(0, 0, 0);
         sizeInnerRadius = lightScript.pointLightInnerRadius;
         sizeOuterRadius = lightScript.pointLightOuterRadius;
+        Debug.Log(sizeInnerRadius + " " + sizeOuterRadius);
     }
 
     // Calls once every fixed number of Frames
@@ -61,20 +62,33 @@ public class PlayerControlls : MonoBehaviour
         {
             DecreaseLight();
         }
+
+        setRadius(sizeInnerRadius, sizeOuterRadius);
     }
     public void setRadius(float innerRadius, float outRadius)
     {
         sizeInnerRadius = innerRadius;
         sizeOuterRadius = outRadius;
+        if (lightScript.pointLightInnerRadius < sizeInnerRadius)
+        {
+            lightScript.pointLightInnerRadius += 3f * Time.deltaTime;
+        }
+
+        if (lightScript.pointLightOuterRadius < sizeOuterRadius)
+        {
+            lightScript.pointLightOuterRadius += 3f * Time.deltaTime;
+        }
     }
 
     public float getInnerRadius()
     {
+        Debug.Log(sizeInnerRadius);
         return sizeInnerRadius;
     }
 
     public float getOuterRadius()
     {
+        Debug.Log(sizeOuterRadius);
         return sizeOuterRadius;
     }
     private void Move()
@@ -171,10 +185,13 @@ public class PlayerControlls : MonoBehaviour
 
     public void OnFlash()
     {
-        float flashDuration = 3f;
-        percentComplete = elapsedTime / flashDuration;
-        sizeInnerRadius = lightScript.pointLightInnerRadius -0.25f;
-        sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
-        flashing = true;
+        if (flashing == false)
+        {
+            float flashDuration = 3f;
+            percentComplete = elapsedTime / flashDuration;
+            sizeInnerRadius = lightScript.pointLightInnerRadius - 0.25f;
+            sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
+            flashing = true;
+        }
     }
 }

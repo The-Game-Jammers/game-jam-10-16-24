@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2555475572691379569}
   - component: {fileID: 4351186356197113899}
   - component: {fileID: 5212445364950736433}
-  - component: {fileID: 2838114557027981805}
+  - component: {fileID: 6605776364030328356}
   m_Layer: 0
   m_Name: Fuel Cell
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6246772194451732311}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.9999037, y: -7.4558034, z: 4.5298953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2838114557027981805
+--- !u!114 &6605776364030328356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6246772194451732311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a335ec887fb30144c9762234134dae46, type: 3}
+  m_Script: {fileID: 11500000, guid: 10c2d25593ffe7a4797e8212d6bf6cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLink: {fileID: 2981612383587439903, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
-  playerControlls: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
-  iN: 1
-  oN: 1
+  player: {fileID: 0}
+  playerControlls: {fileID: 0}
