@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -32,8 +33,18 @@ public class PlayerControlls : MonoBehaviour
     float elapsedTime;
     float percentComplete;
     public bool flashing;
+<<<<<<< Updated upstream
     float sizeInnerRadius;
     float sizeOuterRadius;
+=======
+    public float sizeInnerRadius;
+    public float sizeOuterRadius;
+    [SerializeField] GameObject enemyLink;
+    [SerializeField] Enemy enemyScriptLink;
+    [SerializeField] double stunDistance;
+    [SerializeField] Buttons buttonsScriptLink;
+        
+>>>>>>> Stashed changes
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -77,6 +88,7 @@ public class PlayerControlls : MonoBehaviour
     {
         return sizeOuterRadius;
     }
+
     private void Move()
     {
         velocityX = moveInputX * Time.deltaTime * speedModifier;
@@ -171,10 +183,45 @@ public class PlayerControlls : MonoBehaviour
 
     public void OnFlash()
     {
+<<<<<<< Updated upstream
         float flashDuration = 3f;
         percentComplete = elapsedTime / flashDuration;
         sizeInnerRadius = lightScript.pointLightInnerRadius -0.25f;
         sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
         flashing = true;
+=======
+        if (getInnerRadius() != 0 && getOuterRadius() != 0 && flashing == false)
+        {
+            float flashDuration = 3f;
+            percentComplete = elapsedTime / flashDuration;
+            sizeInnerRadius = lightScript.pointLightInnerRadius - 0.25f;
+            sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
+            flashing = true;
+            stun();
+        }
+    }
+
+    private void stun()
+    {
+        double playerX = transform.position.x;
+        double playerY = transform.position.y;
+        double distance = Math.Sqrt(Math.Pow((playerX - enemyScriptLink.getEnemyX()), 2.0d) + Math.Pow((playerY - enemyScriptLink.getEnemyY()), 2.0d));
+        Debug.Log("Distance: " + distance);
+        if(distance <= stunDistance)
+        {
+            enemyScriptLink.isStuned = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var hitTag = collision.gameObject.tag;
+        if(hitTag == "Level Exit")
+        {
+            buttonsScriptLink.GameWin();
+        }
+>>>>>>> Stashed changes
     }
 }
+
+
