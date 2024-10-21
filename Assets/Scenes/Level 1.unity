@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289962195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -3.4000003, z: -10}
+  m_LocalPosition: {x: -1.7499998, y: -3.4000003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -409,6 +409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1221429921}
+  isStuned: 0
+  StunTime: 10
+  EnemySpeed: 3.5
 --- !u!212 &591779112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -450,7 +453,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14094,7 +14097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613163521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -3.4000003, z: -10}
+  m_LocalPosition: {x: -1.7499998, y: -3.4000003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19383,9 +19386,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
+      propertyPath: enemyLink
+      value: 
+      objectReference: {fileID: 591779110}
+    - target: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
+      propertyPath: stunDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
       propertyPath: spawnLocation
       value: 
       objectReference: {fileID: 1034957988}
+    - target: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
+      propertyPath: enemyScriptLink
+      value: 
+      objectReference: {fileID: 591779111}
     - target: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
       propertyPath: sizeInnerRadius
       value: 0.5
