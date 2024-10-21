@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
@@ -34,6 +35,10 @@ public class PlayerControlls : MonoBehaviour
     public bool flashing;
     public float sizeInnerRadius;
     public float sizeOuterRadius;
+    [SerializeField] GameObject enemyLink;
+    [SerializeField] Enemy enemyScriptLink;
+    [SerializeField] double stunDistance;
+    [SerializeField] Buttons buttonsScriptLink;
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -185,13 +190,35 @@ public class PlayerControlls : MonoBehaviour
 
     public void OnFlash()
     {
-        if (flashing == false)
+        if (getInnerRadius() != 0 && getOuterRadius() != 0 && flashing == false)
         {
             float flashDuration = 3f;
             percentComplete = elapsedTime / flashDuration;
             sizeInnerRadius = lightScript.pointLightInnerRadius - 0.25f;
             sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
             flashing = true;
+            stun();
+        }
+    }
+
+    private void stun()
+    {
+        double playerX = transform.position.x;
+        double playerY = transform.position.y;
+        double distance = Math.Sqrt(Math.Pow((playerX - enemyScriptLink.getEnemyX()), 2.0d) + Math.Pow((playerY - enemyScriptLink.getEnemyY()), 2.0d));
+        Debug.Log("Distance: " + distance);
+        if (distance <= stunDistance)
+        {
+            enemyScriptLink.isStuned = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var hitTag = collision.gameObject.tag;
+        if (hitTag == "Level Exit")
+        {
+            buttonsScriptLink.GameWin();
         }
     }
 }
