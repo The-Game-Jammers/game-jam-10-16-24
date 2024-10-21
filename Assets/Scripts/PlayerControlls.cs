@@ -216,7 +216,7 @@ public class PlayerControlls : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var hitTag = collision.gameObject.tag;
-        if (hitTag == "Level Exit")
+        if (hitTag == "End Point")
         {
             buttonsScriptLink.GameWin();
         }
