@@ -220,5 +220,9 @@ public class PlayerControlls : MonoBehaviour
         {
             buttonsScriptLink.GameWin();
         }
+        else if(hitTag == "Fuel Cell")
+        {
+            setRadius(sizeInnerRadius + 0.25f, sizeOuterRadius + 1f);
+        }   
     }
 }

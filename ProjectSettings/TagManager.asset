@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - End Point
+  - Fuel Cell
   layers:
   - Default
   - TransparentFX
