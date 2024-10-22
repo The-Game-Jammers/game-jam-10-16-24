@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public bool isStuned = false;
     [SerializeField] int StunTime = 10;
     [SerializeField] float EnemySpeed = 3.5f;
+    [SerializeField] PlayerControlls playerControlls;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -22,11 +23,15 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         distance = Vector2.Distance(transform.position, target.position);
-        if (distance < 10f)
+        if (distance < 15f)
         {
             agent.SetDestination(target.position);
         }
-        onStun();
+        if(playerControlls.flashing == true && distance < 5) { 
+            isStuned = true;
+            onStun();
+        }
+        
     }
     public double getEnemyX()
     {
@@ -49,11 +54,13 @@ public class Enemy : MonoBehaviour
 
     IEnumerator stunTime()
     {
-        Debug.Log("ENEMY TIME STUN STARTED");
+        //Debug.Log("ENEMY TIME STUN STARTED");
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(StunTime);
-        Debug.Log("ENEMY TIME STUN STOPPED");
+       // Debug.Log("ENEMY TIME STUN STOPPED");
         agent.speed = EnemySpeed;
-        Debug.Log("Enemy After Speed: " + agent.speed);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        //Debug.Log("Enemy After Speed: " + agent.speed);
         isStuned = false;
     }
 }
