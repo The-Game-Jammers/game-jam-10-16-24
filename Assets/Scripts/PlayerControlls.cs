@@ -14,6 +14,8 @@ public class PlayerControlls : MonoBehaviour
 {
     Rigidbody2D rigidLink;
     Vector2 moveInput;
+    [SerializeField] AudioSource playerAudio;
+    [SerializeField] AudioClip flashSound;
     float moveInputX;
     float moveInputY;
     float velocityX;
@@ -35,10 +37,12 @@ public class PlayerControlls : MonoBehaviour
     public bool flashing;
     public float sizeInnerRadius;
     public float sizeOuterRadius;
+    float health = 2; 
     [SerializeField] GameObject enemyLink;
     [SerializeField] Enemy enemyScriptLink;
     [SerializeField] double stunDistance;
     [SerializeField] Buttons buttonsScriptLink;
+    
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -192,12 +196,14 @@ public class PlayerControlls : MonoBehaviour
     {
         if (getInnerRadius() != 0 && getOuterRadius() != 0 && flashing == false)
         {
+            playerAudio.PlayOneShot(flashSound, 0.7f);
             float flashDuration = 3f;
             percentComplete = elapsedTime / flashDuration;
             sizeInnerRadius = lightScript.pointLightInnerRadius - 0.25f;
             sizeOuterRadius = lightScript.pointLightOuterRadius - 1f;
             flashing = true;
             stun();
+            
         }
     }
 
@@ -224,5 +230,12 @@ public class PlayerControlls : MonoBehaviour
         {
             setRadius(sizeInnerRadius + 0.25f, sizeOuterRadius + 1f);
         }   
+        else if (hitTag == "Enemy")
+        {
+            health -= 1;
+            Debug.Log("Ow");
+        }
     }
+
+
 }
