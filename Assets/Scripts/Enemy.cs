@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int StunTime = 10;
     [SerializeField] float EnemySpeed = 3.5f;
     [SerializeField] PlayerControlls playerControlls;
+    [SerializeField] private float rotationSpeed;
     Animator animatorLink;
     Rigidbody2D rigidLink;
     
@@ -31,7 +32,11 @@ public class Enemy : MonoBehaviour
         {
             agent.SetDestination(target.position);
             animatorLink.SetFloat("Speed", agent.speed);
-
+            if (!isStuned)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, agent.velocity);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            }
         }
         if(playerControlls.flashing == true && distance < 5) { 
             isStuned = true;
