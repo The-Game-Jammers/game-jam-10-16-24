@@ -245,21 +245,12 @@ public class PlayerControlls : MonoBehaviour
         }
         else if (hitTag == "Enemy")
         {
-            if (healthManagerLink = null)
+            healthManagerLink.setHealth(healthManagerLink.getHealth() - 25f);
+            if(healthManagerLink.isDead)
             {
-                return;
-            }
-            else
-            {
-                healthManagerLink.setHealth(healthManagerLink.getHealth() - 25f);
-                if (healthManagerLink.isDead)
-                {
-                    StartCoroutine(GameOverTime());
-                    colliderLink.gameObject.SetActive(false);
-                    InputLink.gameObject.SetActive(false);
-
-                }
-                
+                StartCoroutine(GameOverTime());
+                colliderLink.gameObject.SetActive(false);
+                InputLink.gameObject.SetActive(false);   
             }
         }
     }
