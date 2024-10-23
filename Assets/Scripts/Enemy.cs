@@ -11,12 +11,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] int StunTime = 10;
     [SerializeField] float EnemySpeed = 3.5f;
     [SerializeField] PlayerControlls playerControlls;
+    Animator animatorLink;
+    Rigidbody2D rigidLink;
+    
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = EnemySpeed;
+        animatorLink = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,10 +30,13 @@ public class Enemy : MonoBehaviour
         if (distance < 15f)
         {
             agent.SetDestination(target.position);
+            animatorLink.SetFloat("Speed", agent.speed);
+
         }
         if(playerControlls.flashing == true && distance < 5) { 
             isStuned = true;
             onStun();
+            
         }
         
     }
@@ -49,6 +56,7 @@ public class Enemy : MonoBehaviour
             agent.speed = 0;
             Debug.Log("Enemy Speed: "+ agent.speed);
             StartCoroutine(stunTime());
+            animatorLink.SetBool("Stun", isStuned);
         }
     }
 
@@ -62,6 +70,8 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         //Debug.Log("Enemy After Speed: " + agent.speed);
         isStuned = false;
+        animatorLink.SetBool("Stun", isStuned);
     }
+
 }
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4351186356197113899}
   - component: {fileID: 5212445364950736433}
   - component: {fileID: 6605776364030328356}
+  - component: {fileID: 8701598129743878536}
   m_Layer: 0
   m_Name: Fuel Cell
   m_TagString: Fuel Cell
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4351186356197113899
 SpriteRenderer:
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 257397529, guid: 4d4051e695cd0944788f84db32287808, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,5 +134,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c2d25593ffe7a4797e8212d6bf6cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2981612383587439903, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
-  playerControlls: {fileID: 6239247368768090548, guid: fc88fc10561311f49bd7ed53e3d76a62, type: 3}
+--- !u!95 &8701598129743878536
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246772194451732311}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a98fbc3d3234814aa51043bdd9f9ede, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
