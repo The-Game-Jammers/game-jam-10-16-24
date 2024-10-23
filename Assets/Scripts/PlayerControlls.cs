@@ -42,6 +42,8 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] Enemy enemyScriptLink;
     [SerializeField] double stunDistance;
     [SerializeField] Buttons buttonsScriptLink;
+    [SerializeField] GameObject gameManager;
+    GameManager gameManagerLink;
     
     void Start()
     {
@@ -54,6 +56,7 @@ public class PlayerControlls : MonoBehaviour
         sizeInnerRadius = lightScript.pointLightInnerRadius;
         sizeOuterRadius = lightScript.pointLightOuterRadius;
         Debug.Log(sizeInnerRadius + " " + sizeOuterRadius);
+        gameManagerLink = gameManager.GetComponent<GameManager>();
     }
 
     // Calls once every fixed number of Frames
@@ -225,6 +228,7 @@ public class PlayerControlls : MonoBehaviour
         if (hitTag == "End Point")
         {
             buttonsScriptLink.GameWin();
+            gameManagerLink.GameWon();
         }
         else if(hitTag == "Fuel Cell")
         {

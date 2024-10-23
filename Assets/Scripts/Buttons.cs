@@ -9,6 +9,8 @@ public class Buttons: MonoBehaviour
     [SerializeField] GameObject pauseMenuUI;
     public bool GameIsPaused;
     [SerializeField] GameObject winMenuUI;
+    [SerializeField] GameObject gameManager;
+    GameManager gameManagerLink;
 
     public void loadLevel(string levelName)
     {
@@ -41,6 +43,7 @@ public class Buttons: MonoBehaviour
         pauseMenuUI.SetActive(false);
         winMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
+        gameManagerLink = gameManager.GetComponent<GameManager>();
     }
 
     public void Resume()
@@ -62,5 +65,37 @@ public class Buttons: MonoBehaviour
         StopAllCoroutines();
         Time.timeScale = 0f;
         winMenuUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
+
+    public void hideMenu(GameObject Menu)
+    {
+        Menu.gameObject.SetActive(false);
+        if (gameManagerLink.getLevelComplete())
+        {
+            showMenu(winMenuUI);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void showMenu(GameObject Menu) 
+    {
+        Menu.gameObject.SetActive(true);
+    }
+
+    public void FreezeTime(bool freezTime)
+    {
+        if (freezTime)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 }
