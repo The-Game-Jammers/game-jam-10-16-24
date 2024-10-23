@@ -37,13 +37,19 @@ public class PlayerControlls : MonoBehaviour
     public bool flashing;
     public float sizeInnerRadius;
     public float sizeOuterRadius;
-    float health = 2; 
+    //float health = 2; 
     [SerializeField] GameObject enemyLink;
     [SerializeField] Enemy enemyScriptLink;
     [SerializeField] double stunDistance;
     [SerializeField] Buttons buttonsScriptLink;
     [SerializeField] GameObject gameManager;
     GameManager gameManagerLink;
+    [SerializeField] GameObject healthManager;
+    HealthManager healthManagerLink;
+    //[SerializeField] GameObject GameOverUi;
+    [SerializeField] float DeathTime;
+    PlayerInput InputLink;
+    [SerializeField] float ImmunityTime;
     
     void Start()
     {
@@ -57,6 +63,9 @@ public class PlayerControlls : MonoBehaviour
         sizeOuterRadius = lightScript.pointLightOuterRadius;
         Debug.Log(sizeInnerRadius + " " + sizeOuterRadius);
         gameManagerLink = gameManager.GetComponent<GameManager>();
+        healthManagerLink = healthManager.GetComponent<HealthManager>();
+        colliderLink = GetComponent<CircleCollider2D>();
+        InputLink = GetComponent<PlayerInput>();
     }
 
     // Calls once every fixed number of Frames
@@ -230,16 +239,45 @@ public class PlayerControlls : MonoBehaviour
             buttonsScriptLink.GameWin();
             gameManagerLink.GameWon();
         }
-        else if(hitTag == "Fuel Cell")
+        else if (hitTag == "Fuel Cell")
         {
             setRadius(sizeInnerRadius + 0.25f, sizeOuterRadius + 1f);
-        }   
+        }
         else if (hitTag == "Enemy")
         {
-            health -= 1;
-            Debug.Log("Ow");
+            if (healthManagerLink = null)
+            {
+                return;
+            }
+            else
+            {
+                healthManagerLink.setHealth(healthManagerLink.getHealth() - 25f);
+                if (healthManagerLink.isDead)
+                {
+                    StartCoroutine(GameOverTime());
+                    colliderLink.gameObject.SetActive(false);
+                    InputLink.gameObject.SetActive(false);
+
+                }
+                
+            }
         }
     }
 
+    public void GameOver()
+    {
+        buttonsScriptLink.GameOverMenu();
+    }
+    private IEnumerator GameOverTime()
+    {
+        animatorLink.SetTrigger("Dead");
+        while(getInnerRadius() != 0f && getOuterRadius() != 0f)
+        {
+             setRadius(getInnerRadius() -0.25f, getOuterRadius() - 1f);
+        }
+        yield return new WaitForSeconds(DeathTime);
+        GameOver();
+    }
+     
 
 }

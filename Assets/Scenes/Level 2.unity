@@ -1048,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 5257596402720934100, guid: deaee6f8f77f5a64788eda6b6e2db3eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6332094547235937421, guid: deaee6f8f77f5a64788eda6b6e2db3eb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2319,6 +2323,10 @@ PrefabInstance:
     - target: {fileID: 3338066670726388502, guid: 247771a0bbc74fa429d277ff1a4a6ee1, type: 3}
       propertyPath: m_Name
       value: AreYouSureMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338066670726388502, guid: 247771a0bbc74fa429d277ff1a4a6ee1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6917263391748995110, guid: 247771a0bbc74fa429d277ff1a4a6ee1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

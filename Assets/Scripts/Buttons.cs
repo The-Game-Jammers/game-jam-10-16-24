@@ -11,6 +11,7 @@ public class Buttons: MonoBehaviour
     [SerializeField] GameObject winMenuUI;
     [SerializeField] GameObject gameManager;
     GameManager gameManagerLink;
+    [SerializeField] GameObject gameOverUI;
 
     public void loadLevel(string levelName)
     {
@@ -97,5 +98,12 @@ public class Buttons: MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+    }
+
+    public void GameOverMenu()
+    {
+        pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 }
