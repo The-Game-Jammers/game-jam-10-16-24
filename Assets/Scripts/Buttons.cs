@@ -16,6 +16,7 @@ public class Buttons: MonoBehaviour
     public void loadLevel(string levelName)
     {
         SceneManager.LoadSceneAsync(levelName);
+        Time.timeScale = 1.0f;
     }
 
     public void quit()
@@ -43,6 +44,7 @@ public class Buttons: MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         winMenuUI.SetActive(false);
+        gameOverUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameManagerLink = gameManager.GetComponent<GameManager>();
     }

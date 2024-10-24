@@ -104,7 +104,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isStuned: 0
   StunTime: 10
-  EnemySpeed: 3.5
+  EnemySpeed: 1.5
   playerControlls: {fileID: 0}
   rotationSpeed: 300
 --- !u!195 &8730919394829747817

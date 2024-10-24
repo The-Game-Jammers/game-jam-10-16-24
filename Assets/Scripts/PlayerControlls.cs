@@ -44,8 +44,8 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] Buttons buttonsScriptLink;
     [SerializeField] GameObject gameManager;
     GameManager gameManagerLink;
-    [SerializeField] GameObject healthManager;
-    HealthManager healthManagerLink;
+    //[SerializeField] GameObject healthManager;
+    //HealthManager healthManagerLink;
     //[SerializeField] GameObject GameOverUi;
     [SerializeField] float DeathTime;
     PlayerInput InputLink;
@@ -63,7 +63,7 @@ public class PlayerControlls : MonoBehaviour
         sizeOuterRadius = lightScript.pointLightOuterRadius;
         Debug.Log(sizeInnerRadius + " " + sizeOuterRadius);
         gameManagerLink = gameManager.GetComponent<GameManager>();
-        healthManagerLink = healthManager.GetComponent<HealthManager>();
+        //healthManagerLink = healthManager.GetComponent<HealthManager>();
         colliderLink = GetComponent<CircleCollider2D>();
         InputLink = GetComponent<PlayerInput>();
     }
@@ -245,29 +245,26 @@ public class PlayerControlls : MonoBehaviour
         }
         else if (hitTag == "Enemy")
         {
-            healthManagerLink.setHealth(healthManagerLink.getHealth() - 25f);
-            if(healthManagerLink.isDead)
-            {
-                StartCoroutine(GameOverTime());
-                colliderLink.gameObject.SetActive(false);
-                InputLink.gameObject.SetActive(false);   
-            }
+            GameOver();
         }
     }
 
     public void GameOver()
     {
-        buttonsScriptLink.GameOverMenu();
+        animatorLink.SetTrigger("Dead");
+        InputLink.enabled = false;
+        colliderLink.enabled = false;
+        /*while(getInnerRadius() != 0f && getOuterRadius() != 0f)
+        {
+             setRadius(getInnerRadius() -0.25f, getOuterRadius() - 1f);
+        }*/
+        StartCoroutine(GameOverTime());
     }
     private IEnumerator GameOverTime()
     {
-        animatorLink.SetTrigger("Dead");
-        while(getInnerRadius() != 0f && getOuterRadius() != 0f)
-        {
-             setRadius(getInnerRadius() -0.25f, getOuterRadius() - 1f);
-        }
         yield return new WaitForSeconds(DeathTime);
-        GameOver();
+        buttonsScriptLink.GameOverMenu();
+        
     }
      
 
