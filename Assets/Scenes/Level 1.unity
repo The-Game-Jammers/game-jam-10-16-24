@@ -14811,14 +14811,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fuel Cell
       objectReference: {fileID: 0}
-    - target: {fileID: 6605776364030328356, guid: 8768431d836fc2e4ebadb0f0a95dc40e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1594868266}
-    - target: {fileID: 6605776364030328356, guid: 8768431d836fc2e4ebadb0f0a95dc40e, type: 3}
-      propertyPath: playerControlls
-      value: 
-      objectReference: {fileID: 1594868268}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

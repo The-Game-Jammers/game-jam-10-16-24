@@ -35,6 +35,7 @@ public class PlayerControlls : MonoBehaviour
     float elapsedTime;
     float percentComplete;
     public bool flashing;
+    public bool decreaseingLight;
     public float sizeInnerRadius;
     public float sizeOuterRadius;
     //float health = 2; 
@@ -76,12 +77,7 @@ public class PlayerControlls : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (flashing == true)
         {
-            IncreaseLight();
-        }
-
-        if (flashing == false)
-        {
-            DecreaseLight();
+            FlashBang();
         }
 
         setRadius(sizeInnerRadius, sizeOuterRadius);
@@ -125,57 +121,61 @@ public class PlayerControlls : MonoBehaviour
 
     }
 
-    public void IncreaseLight()
+    public void FlashBang()
     {
-        if (lightScript.pointLightInnerRadius < 8)
+        if (decreaseingLight == false)
         {
-            lightScript.pointLightInnerRadius += 100f * Time.deltaTime;
-        }
+            if (lightScript.pointLightInnerRadius < 8)
+            {
+                lightScript.pointLightInnerRadius += 100f * Time.deltaTime;
+            }
 
-        if (lightScript.pointLightOuterRadius < 30)
+            if (lightScript.pointLightOuterRadius < 30)
+            {
+                lightScript.pointLightOuterRadius += 100f * Time.deltaTime;
+                lightScript.intensity = 200f;
+            }
+            else
+            {
+                decreaseingLight = true;
+            }
+        }
+        if (decreaseingLight == true)
         {
-            lightScript.pointLightOuterRadius += 100f * Time.deltaTime;
-            lightScript.intensity = 200f;
-        }
+            if (lightScript.pointLightInnerRadius > sizeInnerRadius)
+            {
+                lightScript.pointLightInnerRadius -= 30f * Time.deltaTime;
+            }
 
-        if (lightScript.pointLightInnerRadius >= 8 && lightScript.pointLightOuterRadius >= 30)
-        {
-            flashing = false;
-        }
+            if (lightScript.pointLightOuterRadius > sizeOuterRadius)
+            {
+                lightScript.pointLightOuterRadius -= 30f * Time.deltaTime;
+            }
 
+            if (lightScript.intensity > 1)
+            {
+                lightScript.intensity -= 200 * Time.deltaTime;
+            }
+            else
+            {
+                lightScript.intensity = 1f;
+            }
+
+            if (lightScript.pointLightInnerRadius < sizeInnerRadius)
+            {
+                lightScript.pointLightInnerRadius = sizeInnerRadius;
+            }
+
+            if (lightScript.pointLightOuterRadius < sizeOuterRadius)
+            {
+                lightScript.pointLightOuterRadius = sizeOuterRadius;
+                decreaseingLight = false;
+                flashing = false;
+            }
+        }
     }
 
-    public void DecreaseLight()
-    {
-        if (lightScript.pointLightInnerRadius > sizeInnerRadius)
-        {
-            lightScript.pointLightInnerRadius -= 30f * Time.deltaTime;
-        }
-
-        if (lightScript.pointLightOuterRadius > sizeOuterRadius)
-        {
-            lightScript.pointLightOuterRadius -= 30f * Time.deltaTime;
-        }
-
-        if (lightScript.intensity > 1)
-        {
-            lightScript.intensity -= 200 * Time.deltaTime;
-        }
-        else
-        {
-            lightScript.intensity = 1f;
-        }
-
-        if(lightScript.pointLightInnerRadius < sizeInnerRadius)
-        {
-            lightScript.pointLightInnerRadius = sizeInnerRadius;
-        }
-
-        if(lightScript.pointLightOuterRadius < sizeOuterRadius)
-        {
-            lightScript.pointLightOuterRadius = sizeOuterRadius;
-        }
-    }
+    
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
