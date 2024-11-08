@@ -51,7 +51,8 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] float DeathTime;
     PlayerInput InputLink;
     [SerializeField] float ImmunityTime;
-    
+    float intensity;
+    public float hp;
     void Start()
     {
         rigidLink = GetComponent<Rigidbody2D>();
@@ -67,6 +68,7 @@ public class PlayerControlls : MonoBehaviour
         //healthManagerLink = healthManager.GetComponent<HealthManager>();
         colliderLink = GetComponent<CircleCollider2D>();
         InputLink = GetComponent<PlayerInput>();
+        intensity = lightScript.intensity;
     }
 
     // Calls once every fixed number of Frames
@@ -81,6 +83,7 @@ public class PlayerControlls : MonoBehaviour
         }
 
         setRadius(sizeInnerRadius, sizeOuterRadius);
+        setIntensity();
     }
     public void setRadius(float innerRadius, float outRadius)
     {
@@ -123,7 +126,7 @@ public class PlayerControlls : MonoBehaviour
 
     public void FlashBang()
     {
-        if (decreaseingLight == false)
+        if(decreaseingLight == false)
         {
             if (lightScript.pointLightInnerRadius < 8)
             {
@@ -140,6 +143,7 @@ public class PlayerControlls : MonoBehaviour
                 decreaseingLight = true;
             }
         }
+        
         if (decreaseingLight == true)
         {
             if (lightScript.pointLightInnerRadius > sizeInnerRadius)
@@ -152,14 +156,7 @@ public class PlayerControlls : MonoBehaviour
                 lightScript.pointLightOuterRadius -= 30f * Time.deltaTime;
             }
 
-            if (lightScript.intensity > 1)
-            {
-                lightScript.intensity -= 200 * Time.deltaTime;
-            }
-            else
-            {
-                lightScript.intensity = 1f;
-            }
+            
 
             if (lightScript.pointLightInnerRadius < sizeInnerRadius)
             {
@@ -173,6 +170,19 @@ public class PlayerControlls : MonoBehaviour
                 flashing = false;
             }
         }
+            
+    }
+
+    public void setIntensity()
+    {
+    if (lightScript.intensity > intensity)
+       {
+          lightScript.intensity -= 200 * Time.deltaTime;
+       }
+        else
+         {
+            lightScript.intensity = intensity;
+         }
     }
 
     
@@ -245,7 +255,12 @@ public class PlayerControlls : MonoBehaviour
         }
         else if (hitTag == "Enemy")
         {
-            GameOver();
+            hp--;
+            if(hp <= 0)
+            {
+                GameOver();
+            }
+           
         }
     }
 
